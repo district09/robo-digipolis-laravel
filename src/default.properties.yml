@@ -1,0 +1,15 @@
+remote:
+  appdir: '/home/[user]/apps/[app]'
+  releasesdir: '${remote.appdir}/releases'
+  webdir: '${remote.releasesdir}/[time]/public'
+  currentdir: '${remote.appdir}/current'
+  configdir: '${remote.appdir}/config'
+  filesdir: '${remote.appdir}/files'
+  backupsdir: '${remote.appdir}/backups'
+  symlinks:
+    - '${remote.webdir}:${remote.currentdir}'
+    - '${remote.configdir}/.env:${remote.currentdir}/.env'
+    - '${remote.filesdir}/.env:${remote.currentdir}/storage'
+  opcache:
+    env: 'fcgi'
+    host: '/var/run/php_fpm_[user].sock'
