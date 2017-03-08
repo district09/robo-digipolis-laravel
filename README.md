@@ -10,7 +10,7 @@ RoboFile. All commands can be overwritten by overwriting the parent method.
 ```php
 <?php
 
-use DigipolisGent\Robo\Drupal8\RoboFileBase;
+use DigipolisGent\Robo\Laravel\RoboFileBase;
 
 class RoboFile extends RoboFileBase
 {
@@ -26,7 +26,7 @@ class RoboFile extends RoboFileBase
             'worker' => null,
         ]
     ) {
-        $collection = parent::digipolisDeployLaravel$arguments, $opts);
+        $collection = parent::digipolisDeployLaravel($arguments, $opts);
         $collection->taskExec('/usr/bin/custom-post-release-script.sh');
         return $collection;
     }
