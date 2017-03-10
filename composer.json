@@ -5,11 +5,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "digipolisgent/robo-digipolis-package": "^0.1",
-        "digipolisgent/robo-digipolis-deploy": "^0.1",
-        "digipolisgent/robo-digipolis-general": "^0.1",
-        "gordalina/cachetool": "^2.1|^1.11",
-        "vlucas/phpdotenv": "^2.4"
+        "digipolisgent/robo-digipolis-helpers": "^0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4",
