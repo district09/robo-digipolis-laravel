@@ -2,7 +2,9 @@
 
 namespace DigipolisGent\Robo\Laravel;
 
+use DigipolisGent\Robo\Helpers\AbstractRoboFile;
 use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\KeyFile;
+use Dotenv\Dotenv;
 use Symfony\Component\Finder\Finder;
 
 class RoboFileBase extends AbstractRoboFile
@@ -383,10 +385,10 @@ class RoboFileBase extends AbstractRoboFile
             return false;
         }
 
-        $finder = new \Symfony\Component\Finder\Finder();
+        $finder = new Finder();
         $finder->in($rootDir)->ignoreDotFiles(false)->files()->name('.env');
         foreach ($finder as $settingsFile) {
-            $env = new \Dotenv\Dotenv(dirname($settingsFile->getRealPath()), $settingsFile->getFilename());
+            $env = new Dotenv(dirname($settingsFile->getRealPath()), $settingsFile->getFilename());
             $env->load();
             break;
         }
