@@ -34,10 +34,10 @@ class RoboFileBase extends AbstractRoboFile
     {
         $currentProjectRoot = $remote['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
-        $collection
-            ->taskSsh($worker, $auth)
-                ->remoteDirectory($remote['filesdir'], true)
-                ->exec('rm -rf app/* framework/* logs/* app/.??* framework/.?? logs/.??');
+        $parent = parent::preRestoreBackupTask($worker, $auth, $remote);
+        if ($parent) {
+            $collection->addTask($parent);
+        }
 
         $collection
             ->taskSsh($worker, $auth)
@@ -45,14 +45,6 @@ class RoboFileBase extends AbstractRoboFile
                 ->timeout(60)
                 ->exec('./artisan migrate:reset');
         return $collection;
-    }
-
-    protected function preSymlinkTask($worker, AbstractAuth $auth, $remote)
-    {
-        return $this->taskSsh($worker, $auth)
-            // Ensure folder structure
-            ->exec('mkdir -p ' . $remote['filesdir'] . '/{app/public,framework/{cache,sessions,views},logs}')
-            ->exec('rm -rf ' . $remote['currentdir'] . '/storage');
     }
 
     protected function installTask($worker, AbstractAuth $auth, $remote, $extra = [], $force = false)

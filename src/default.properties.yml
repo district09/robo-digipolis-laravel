@@ -9,7 +9,7 @@ remote:
   symlinks:
     - '${remote.webdir}:${remote.currentdir}'
     - '${remote.configdir}/.env:${remote.currentdir}/.env'
-    - '${remote.filesdir}/.env:${remote.currentdir}/storage'
+    - '${remote.filesdir}/storage:${remote.currentdir}/storage'
   opcache:
     env: 'fcgi'
     host: '/var/run/php_fpm_[user].sock'
