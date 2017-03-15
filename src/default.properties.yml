@@ -14,4 +14,4 @@ remote:
     env: 'fcgi'
     host: '/var/run/php_fpm_[user].sock'
 local:
-  filesdir: '[project_root]/storage'
+  filesdir: '[web_root]/storage'
