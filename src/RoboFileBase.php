@@ -3,6 +3,7 @@
 namespace DigipolisGent\Robo\Laravel;
 
 use DigipolisGent\Robo\Helpers\AbstractRoboFile;
+use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\AbstractAuth;
 use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\KeyFile;
 use Dotenv\Dotenv;
 use Symfony\Component\Finder\Finder;
