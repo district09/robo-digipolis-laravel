@@ -3,6 +3,7 @@
 namespace DigipolisGent\Robo\Laravel;
 
 use DigipolisGent\Robo\Helpers\AbstractRoboFile;
+use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\AbstractAuth;
 use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\KeyFile;
 use Dotenv\Dotenv;
 use Symfony\Component\Finder\Finder;
@@ -30,20 +31,30 @@ class RoboFileBase extends AbstractRoboFile
         return $status && $migrateStatus != 'No migrations found.';
     }
 
-    protected function preRestoreBackupTask($worker, AbstractAuth $auth, $remote)
-    {
+    protected function preRestoreBackupTask(
+        $worker,
+        AbstractAuth $auth,
+        $remote,
+        $opts = ['files' => false, 'data' => false]
+    ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         $currentProjectRoot = $remote['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
-        $parent = parent::preRestoreBackupTask($worker, $auth, $remote);
+        $parent = parent::preRestoreBackupTask($worker, $auth, $remote, $opts);
         if ($parent) {
             $collection->addTask($parent);
         }
 
-        $collection
-            ->taskSsh($worker, $auth)
-                ->remoteDirectory($currentProjectRoot, true)
-                ->timeout(60)
-                ->exec('./artisan migrate:reset');
+        if ($opts['data']) {
+            $collection
+                ->taskSsh($worker, $auth)
+                    ->remoteDirectory($currentProjectRoot, true)
+                    ->timeout(60)
+                    ->exec('./artisan migrate:reset');
+        }
         return $collection;
     }
 
@@ -239,8 +250,13 @@ class RoboFileBase extends AbstractRoboFile
         $destinationHost,
         $destinationKeyFile,
         $sourceApp = 'default',
-        $destinationApp = 'default'
+        $destinationApp = 'default',
+        $opts = ['files' => false, 'data' => false]
     ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         return $this->syncTask(
             $sourceUser,
             $sourceHost,
@@ -249,7 +265,8 @@ class RoboFileBase extends AbstractRoboFile
             $destinationHost,
             $destinationKeyFile,
             $sourceApp,
-            $destinationApp
+            $destinationApp,
+            $opts
         );
     }
 
@@ -267,11 +284,19 @@ class RoboFileBase extends AbstractRoboFile
      *
      * @option app The name of the app we're creating the backup for.
      */
-    public function digipolisBackupLaravel($host, $user, $keyFile, $opts = ['app' => 'default'])
-    {
+    public function digipolisBackupLaravel(
+        $host,
+        $user,
+        $keyFile,
+        $opts = ['app' => 'default', 'files' => false, 'data' => false]
+    ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         $remote = $this->getRemoteSettings($host, $user, $keyFile, $opts['app']);
         $auth = new KeyFile($user, $keyFile);
-        return $this->backupTask($host, $auth, $remote);
+        return $this->backupTask($host, $auth, $remote, $opts);
     }
 
     /**
@@ -299,11 +324,17 @@ class RoboFileBase extends AbstractRoboFile
         $opts = [
             'app' => 'default',
             'timestamp' => null,
+            'files' => false,
+            'data' => false,
         ]
     ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         $remote = $this->getRemoteSettings($host, $user, $keyFile, $opts['app'], $opts['timestamp']);
         $auth = new KeyFile($user, $keyFile);
-        return $this->restoreBackupTask($host, $auth, $remote);
+        return $this->restoreBackupTask($host, $auth, $remote, $opts);
     }
 
     /**
@@ -331,11 +362,17 @@ class RoboFileBase extends AbstractRoboFile
         $opts = [
             'app' => 'default',
             'timestamp' => null,
+            'files' => false,
+            'data' => false,
         ]
     ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         $remote = $this->getRemoteSettings($host, $user, $keyFile, $opts['app'], $opts['timestamp']);
         $auth = new KeyFile($user, $keyFile);
-        return $this->downloadBackupTask($host, $auth, $remote);
+        return $this->downloadBackupTask($host, $auth, $remote, $opts);
     }
 
     /**
@@ -363,11 +400,17 @@ class RoboFileBase extends AbstractRoboFile
         $opts = [
             'app' => 'default',
             'timestamp' => null,
+            'files' => false,
+            'data' => false,
         ]
     ) {
+        if (!$opts['files'] && !$opts['data']) {
+            $opts['files'] = true;
+            $opts['data'] = true;
+        }
         $remote = $this->getRemoteSettings($host, $user, $keyFile, $opts['app'], $opts['timestamp']);
         $auth = new KeyFile($user, $keyFile);
-        return $this->uploadBackupTask($host, $auth, $remote);
+        return $this->uploadBackupTask($host, $auth, $remote, $opts);
     }
 
     protected function defaultDbConfig()
