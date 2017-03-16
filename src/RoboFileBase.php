@@ -58,6 +58,18 @@ class RoboFileBase extends AbstractRoboFile
         return $collection;
     }
 
+    protected function preSymlinkTask($worker, AbstractAuth $auth, $remote) {
+      $currentProjectRoot = $remote['currentdir'] . '/..';
+        $collection = $this->collectionBuilder();
+        $parent = parent::preSymlinkTask($worker, $auth, $remote);
+        if ($parent) {
+            $collection->addTask($parent);
+        }
+        $collection->taskSsh($worker, $auth)
+            ->remoteDirectory($currentProjectRoot, true)
+            ->exec('chmod u+x ./artisan');
+    }
+
     protected function installTask($worker, AbstractAuth $auth, $remote, $extra = [], $force = false)
     {
         $currentProjectRoot = $remote['currentdir'] . '/..';
