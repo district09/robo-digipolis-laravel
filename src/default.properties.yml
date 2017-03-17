@@ -8,7 +8,7 @@ remote:
   backupsdir: '${remote.appdir}/backups'
   symlinks:
     - '${remote.webdir}:${remote.currentdir}'
-    - '${remote.configdir}/.env:${remote.currentdir}/.env'
+    - '${remote.configdir}/.env:${remote.releasesdir}/[time]/.env'
     - '${remote.filesdir}/storage:${remote.currentdir}/storage'
   opcache:
     env: 'fcgi'
