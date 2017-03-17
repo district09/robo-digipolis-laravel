@@ -53,7 +53,7 @@ class RoboFileBase extends AbstractRoboFile
                 ->taskSsh($worker, $auth)
                     ->remoteDirectory($currentProjectRoot, true)
                     ->timeout(60)
-                    ->exec('php artisan migrate:reset');
+                    ->exec('php artisan migrate:reset --force');
         }
         return $collection;
     }
