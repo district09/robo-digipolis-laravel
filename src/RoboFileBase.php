@@ -15,7 +15,7 @@ class RoboFileBase extends AbstractRoboFile
      *
      * @var type
      */
-    protected $fileBackupSubDirs = ['app', 'framework', 'logs'];
+    protected $fileBackupSubDirs = ['storage'];
 
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
