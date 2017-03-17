@@ -67,7 +67,7 @@ class RoboFileBase extends AbstractRoboFile
         }
         $collection->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
-            ->exec('chmod u+x ./artisan');
+            ->exec('chmod a+x artisan');
         return $collection;
     }
 
