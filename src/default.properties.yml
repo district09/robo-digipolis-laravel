@@ -4,11 +4,11 @@ remote:
   webdir: '${remote.releasesdir}/[time]/public'
   currentdir: '${remote.appdir}/current'
   configdir: '${remote.appdir}/config'
-  filesdir: '${remote.appdir}/files'
+  filesdir: '${remote.appdir}/files/public'
   backupsdir: '${remote.appdir}/backups'
   symlinks:
     - '${remote.webdir}:${remote.currentdir}'
-    - '${remote.configdir}/.env:${remote.currentdir}/.env'
+    - '${remote.configdir}/.env:${remote.releasesdir}/[time]/.env'
     - '${remote.filesdir}/storage:${remote.currentdir}/storage'
   opcache:
     env: 'fcgi'

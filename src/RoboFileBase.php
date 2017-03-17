@@ -23,7 +23,7 @@ class RoboFileBase extends AbstractRoboFile
         $migrateStatus = '';
         $status = $this->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
-            ->exec('./artisan migrate:status', function ($output) use ($migrateStatus) {
+            ->exec('php artisan migrate:status', function ($output) use ($migrateStatus) {
                 $migrateStatus .= $output;
             })
             ->run()
@@ -53,8 +53,21 @@ class RoboFileBase extends AbstractRoboFile
                 ->taskSsh($worker, $auth)
                     ->remoteDirectory($currentProjectRoot, true)
                     ->timeout(60)
-                    ->exec('./artisan migrate:reset');
+                    ->exec('php artisan migrate:reset --force');
         }
+        return $collection;
+    }
+
+    protected function preSymlinkTask($worker, AbstractAuth $auth, $remote) {
+      $currentProjectRoot = $remote['currentdir'] . '/..';
+        $collection = $this->collectionBuilder();
+        $parent = parent::preSymlinkTask($worker, $auth, $remote);
+        if ($parent) {
+            $collection->addTask($parent);
+        }
+        $collection->taskSsh($worker, $auth)
+            ->remoteDirectory($currentProjectRoot, true)
+            ->exec('chmod a+x artisan');
         return $collection;
     }
 
@@ -67,7 +80,7 @@ class RoboFileBase extends AbstractRoboFile
             // Install can take a long time. Let's set it to 15 minutes.
             ->timeout(900);
         if ($force) {
-            $collection->exec('./artisan migrate:reset');
+            $collection->exec('php artisan migrate:reset');
         }
         $collection->exec('vendor/bin/robo digipolis:install-laravel');
         return $collection;
@@ -89,7 +102,7 @@ class RoboFileBase extends AbstractRoboFile
         return $this->taskSsh($worker, $auth)
                 ->remoteDirectory($currentProjectRoot, true)
                 ->timeout(120)
-                ->exec('./artisan cache:clear');
+                ->exec('php artisan cache:clear');
     }
 
     protected function buildTask($archivename = null)
@@ -198,9 +211,9 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
-                ->exec('./artisan down')
-                ->exec('./artisan migrate --force')
-                ->exec('./artisan up');
+                ->exec('php artisan down')
+                ->exec('php artisan migrate --force')
+                ->exec('php artisan up');
         return $collection;
     }
 
@@ -213,10 +226,10 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
-                ->exec('./artisan down')
-                ->exec('./artisan migrate --force')
-                ->exec('./artisan db:seed --force')
-                ->exec('./artisan up');
+                ->exec('php artisan down')
+                ->exec('php artisan migrate --force')
+                ->exec('php artisan db:seed --force')
+                ->exec('php artisan up');
         return $collection;
     }
 
