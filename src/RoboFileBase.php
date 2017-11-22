@@ -114,9 +114,6 @@ class RoboFileBase extends AbstractRoboFile
         if ($parent) {
             $collection->addTask($parent);
         }
-        $collection->taskSsh($worker, $auth)
-            ->remoteDirectory($currentProjectRoot, true)
-            ->exec('chmod a+x artisan');
         return $collection;
     }
     
@@ -127,6 +124,9 @@ class RoboFileBase extends AbstractRoboFile
         if ($parent) {
             $collection->addTask($parent);
         }
+        $collection->taskSsh($worker, $auth)
+            ->remoteDirectory($currentProjectRoot, true)
+            ->exec('chmod a+x artisan');
         $collection->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
             ->exec('rm -rf public/storage')
