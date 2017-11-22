@@ -1,5 +1,15 @@
 # Robo Digipolis Laravel
 
+[![Latest Stable Version](https://poser.pugx.org/digipolisgent/robo-digipolis-laravel/v/stable)](https://packagist.org/packages/digipolisgent/robo-digipolis-laravel)
+[![Latest Unstable Version](https://poser.pugx.org/digipolisgent/robo-digipolis-laravel/v/unstable)](https://packagist.org/packages/digipolisgent/robo-digipolis-laravel)
+[![Total Downloads](https://poser.pugx.org/digipolisgent/robo-digipolis-laravel/downloads)](https://packagist.org/packages/digipolisgent/robo-digipolis-laravel)
+[![License](https://poser.pugx.org/digipolisgent/robo-digipolis-laravel/license)](https://packagist.org/packages/digipolisgent/robo-digipolis-laravel)
+
+[![Build Status](https://travis-ci.org/digipolisgent/robo-digipolis-laravel.svg?branch=develop)](https://travis-ci.org/digipolisgent/robo-digipolis-laravel)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c2d97d51c6953451747b/maintainability)](https://codeclimate.com/github/digipolisgent/robo-digipolis-laravel/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c2d97d51c6953451747b/test_coverage)](https://codeclimate.com/github/digipolisgent/robo-digipolis-laravel/test_coverage)
+[![PHP 7 ready](https://php7ready.timesplinter.ch/digipolisgent/robo-digipolis-laravel/develop/badge.svg)](https://travis-ci.org/digipolisgent/robo-digipolis-laravel)
+
 Used by digipolis, serving as an example.
 
 This package contains a RoboFileBase class that can be used in your own
