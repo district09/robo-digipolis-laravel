@@ -17,6 +17,8 @@ class RoboFileBase extends AbstractRoboFile
      */
     protected $fileBackupSubDirs = ['storage'];
 
+    protected $excludeFromBackup = ['storage/logs/*'];
+
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
         $currentProjectRoot = $remote['currentdir'] . '/..';
@@ -116,7 +118,7 @@ class RoboFileBase extends AbstractRoboFile
         }
         return $collection;
     }
-    
+
     protected function postSymlinkTask($worker, AbstractAuth $auth, $remote) {
         $currentProjectRoot = $remote['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
