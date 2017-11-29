@@ -17,6 +17,8 @@ class RoboFileBase extends AbstractRoboFile
      */
     protected $fileBackupSubDirs = ['storage'];
 
+    protected $excludeFromBackup = ['storage/logs/*'];
+
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
         $currentProjectRoot = $remote['currentdir'] . '/..';
