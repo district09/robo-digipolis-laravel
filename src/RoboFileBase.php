@@ -116,7 +116,7 @@ class RoboFileBase extends AbstractRoboFile
         }
         return $collection;
     }
-    
+
     protected function postSymlinkTask($worker, AbstractAuth $auth, $remote) {
         $currentProjectRoot = $remote['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
