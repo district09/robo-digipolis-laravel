@@ -21,7 +21,7 @@ class RoboFileBase extends AbstractRoboFile
 
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
-        $currentProjectRoot = $this->getCurrentProjectRoot($worker, $auth, $remote);
+        $currentProjectRoot = $remote['currentdir'] . '/..';
         $migrateStatus = '';
         $status = $this->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
