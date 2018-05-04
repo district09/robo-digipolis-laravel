@@ -276,6 +276,7 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
+                ->exec('cd -P ' . $this->getConfig()->get('digipolis.root.web') . '/..')
                 ->exec('php artisan down')
                 ->exec('php artisan migrate --force')
                 ->exec('php artisan up');
@@ -291,6 +292,7 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
+                ->exec('cd -P ' . $this->getConfig()->get('digipolis.root.web') . '/..')
                 ->exec('php artisan down')
                 ->exec('php artisan migrate --force')
                 ->exec('php artisan db:seed --force')
