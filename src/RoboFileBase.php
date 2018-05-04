@@ -21,7 +21,7 @@ class RoboFileBase extends AbstractRoboFile
 
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
-        $currentProjectRoot = $remote['currentdir'] . '/..';
+        $currentProjectRoot = $this->getCurrentProjectRoot($worker, $auth, $remote);
         $migrateStatus = '';
         $status = $this->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
@@ -110,7 +110,6 @@ class RoboFileBase extends AbstractRoboFile
     }
 
     protected function preSymlinkTask($worker, AbstractAuth $auth, $remote) {
-        $currentProjectRoot = $remote['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
         $parent = parent::preSymlinkTask($worker, $auth, $remote);
         if ($parent) {
@@ -147,15 +146,16 @@ class RoboFileBase extends AbstractRoboFile
         if ($force) {
             $collection->exec('php artisan migrate:reset');
         }
-        $collection->exec('vendor/bin/robo digipolis:install-laravel');
+        $collection->taskSsh($worker, $auth)
+            ->remoteDirectory($remote['rootdir'], true)
+            ->exec('vendor/bin/robo digipolis:install-laravel');
         return $collection;
     }
 
     protected function updateTask($server, AbstractAuth $auth, $remote, $extra = [])
     {
-        $currentProjectRoot = $remote['currentdir'] . '/..';
         return $this->taskSsh($server, $auth)
-            ->remoteDirectory($currentProjectRoot, true)
+            ->remoteDirectory($remote['rootdir'], true)
             // Updates can take a long time. Let's set it to 15 minutes.
             ->timeout(900)
             ->exec('vendor/bin/robo digipolis:update-laravel');
