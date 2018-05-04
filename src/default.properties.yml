@@ -1,7 +1,8 @@
 remote:
   appdir: '/home/[user]/apps/[app]'
   releasesdir: '${remote.appdir}/releases'
-  webdir: '${remote.releasesdir}/[time]/public'
+  rootdir: '${remote.releasesdir}/[time]'
+  webdir: '${remote.rootdir}/public'
   currentdir: '${remote.appdir}/current'
   configdir: '${remote.appdir}/config'
   filesdir: '${remote.appdir}/files/public'
