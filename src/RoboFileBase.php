@@ -21,7 +21,7 @@ class RoboFileBase extends AbstractRoboFile
 
     protected function isSiteInstalled($worker, AbstractAuth $auth, $remote)
     {
-        $currentProjectRoot = $this->getCurrentProjectRoot($worker, $auth, $remote);
+        $currentProjectRoot = $remote['currentdir'] . '/..';
         $migrateStatus = '';
         $status = $this->taskSsh($worker, $auth)
             ->remoteDirectory($currentProjectRoot, true)
@@ -276,6 +276,7 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
+                ->exec('cd -P ' . $this->getConfig()->get('digipolis.root.web') . '/..')
                 ->exec('php artisan down')
                 ->exec('php artisan migrate --force')
                 ->exec('php artisan up');
@@ -291,6 +292,7 @@ class RoboFileBase extends AbstractRoboFile
         $collection = $this->collectionBuilder();
         $collection
             ->taskExecStack()
+                ->exec('cd -P ' . $this->getConfig()->get('digipolis.root.web') . '/..')
                 ->exec('php artisan down')
                 ->exec('php artisan migrate --force')
                 ->exec('php artisan db:seed --force')
