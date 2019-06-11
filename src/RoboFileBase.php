@@ -503,7 +503,9 @@ class RoboFileBase extends AbstractRoboFile
         $finder = new Finder();
         $finder->in($rootDir)->ignoreDotFiles(false)->files()->name('.env');
         foreach ($finder as $settingsFile) {
-            $env = new Dotenv(dirname($settingsFile->getRealPath()), $settingsFile->getFilename());
+            $env = method_exists(Dotenv::class, 'create')
+                ? Dotenv::create(dirname($settingsFile->getRealPath()), $settingsFile->getFilename())
+                : new Dotenv(dirname($settingsFile->getRealPath()), $settingsFile->getFilename());
             $env->load();
             break;
         }
