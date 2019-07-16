@@ -12,6 +12,8 @@ class RoboFileBase extends AbstractRoboFile
     use \DigipolisGent\Robo\Task\CodeValidation\loadTasks;
     use \DigipolisGent\Robo\Helpers\Traits\AbstractCommandTrait;
     use \DigipolisGent\Robo\Task\Deploy\Commands\loadCommands;
+    use \DigipolisGent\Robo\Task\Package\Traits\ThemeCompileTrait;
+    use \DigipolisGent\Robo\Task\Package\Traits\ThemeCleanTrait;
     use Traits\BuildLaravelTrait;
     use Traits\DeployLaravelTrait;
     use Traits\UpdateLaravelTrait;
