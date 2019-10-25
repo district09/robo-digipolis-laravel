@@ -5,7 +5,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "digipolisgent/robo-digipolis-helpers": "^1.0@alpha",
+        "digipolisgent/robo-digipolis-helpers": "^1.0",
         "vlucas/phpdotenv": "^2.4 || ^3.0",
         "digipolisgent/robo-digipolis-code-validation": "^0.1.1"
     },
