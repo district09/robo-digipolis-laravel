@@ -9,7 +9,7 @@ trait SyncLaravelTrait
     /**
      * @see \DigipolisGent\Robo\Helpers\Traits\TraitDependencyCheckerTrait
      */
-    protected function getSyncDrupal8TraitDependencies()
+    protected function getSyncLaravelTraitDependencies()
     {
         return [AbstractSyncRemoteCommandTrait::class];
     }
