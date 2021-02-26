@@ -222,6 +222,7 @@ class RoboFileBase extends AbstractRoboFile
                 'pass' => $this->env('DB_PASSWORD', 'forge'),
                 'database' => $this->env('DB_DATABASE'),
                 'structureTables' => [],
+                'extra' => '--skip-add-locks --no-tablespaces',
             ]
         ];
     }
