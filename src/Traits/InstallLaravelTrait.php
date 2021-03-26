@@ -2,6 +2,7 @@
 
 namespace DigipolisGent\Robo\Laravel\Traits;
 
+use DigipolisGent\CommandBuilder\CommandBuilder;
 use DigipolisGent\Robo\Helpers\Traits\AbstractDeployCommandTrait;
 use DigipolisGent\Robo\Task\Deploy\Ssh\Auth\AbstractAuth;
 
@@ -39,13 +40,26 @@ trait InstallLaravelTrait
     {
         $this->readProperties();
         $collection = $this->collectionBuilder();
-        $collection
-            ->taskExecStack()
-                ->exec('cd -P ' . $this->getConfig()->get('digipolis.root.web') . '/..')
-                ->exec('php artisan down')
-                ->exec('php artisan migrate --force')
-                ->exec('php artisan db:seed --force')
-                ->exec('php artisan up');
+        $command = CommandBuilder::create('cd')
+            ->addArgument($this->getConfig()->get('digipolis.root.web') . '/..')
+            ->addFlag('P')
+            ->onSuccess('echo')
+            ->addArgument("print_r(DB::select('SHOW TABLES'));")
+            ->pipeOutputTo(
+                CommandBuilder::create('php')
+                    ->addArgument('artisan')
+                    ->addArgument('tinker')
+            )
+            ->pipeOutputTo(
+                CommandBuilder::create('grep')
+                    ->addArgument('users')
+            )->onFailure(
+                CommandBuilder::create('php artisan down')
+                    ->onSuccess('php artisan migrate --force')
+                    ->onSuccess('php artisan db:seed --force')
+                    ->onSuccess('php artisan up')
+            );
+        $collection->taskExec($command);
         return $collection;
     }
 }
