@@ -59,7 +59,7 @@ trait InstallLaravelTrait
                     ->onSuccess('php artisan db:seed --force')
                     ->onSuccess('php artisan up')
             );
-        $collection->taskExec($command);
+        $collection->taskExec((string) $command);
         return $collection;
     }
 }
