@@ -1,18 +1,13 @@
 <?php
 
-namespace DigipolisGent\Robo\Laravel\Traits;
+namespace DigipolisGent\Robo\Laravel\Robo\Plugin\Commands;
 
-use DigipolisGent\Robo\Helpers\Traits\AbstractSyncRemoteCommandTrait;
+use Consolidation\AnnotatedCommand\Events\CustomEventAwareInterface;
+use Robo\Tasks;
 
-trait SyncLaravelTrait
+class DigipolisLaravelSyncCommand extends Tasks implements CustomEventAwareInterface
 {
-    /**
-     * @see \DigipolisGent\Robo\Helpers\Traits\TraitDependencyCheckerTrait
-     */
-    protected function getSyncLaravelTraitDependencies()
-    {
-        return [AbstractSyncRemoteCommandTrait::class];
-    }
+    use \DigipolisGent\Robo\Helpers\Traits\DigipolisHelpersSyncCommandUtilities;
 
     /**
      * Sync the database and files between two Laravel sites.

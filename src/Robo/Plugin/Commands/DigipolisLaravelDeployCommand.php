@@ -1,19 +1,15 @@
 <?php
 
-namespace DigipolisGent\Robo\Laravel\Traits;
+namespace DigipolisGent\Robo\Laravel\Robo\Plugin\Commands;
 
-use DigipolisGent\Robo\Laravel\Traits\BuildLaravelTrait;
+use Consolidation\AnnotatedCommand\Events\CustomEventAwareInterface;
+use Robo\Tasks;
 
-trait DeployLaravelTrait
+class DigipolisLaravelDeployCommand extends Tasks implements CustomEventAwareInterface
 {
-    /**
-     * @see \DigipolisGent\Robo\Helpers\Traits\TraitDependencyCheckerTrait
-     */
-    protected function getDeployLaravelTraitDependencies()
-    {
-        return [BuildLaravelTrait::class];
-    }
 
+    use \DigipolisGent\Robo\Helpers\Traits\DigipolisHelpersDeployCommandUtilities;
+  
     /**
      * Build a Laravel site and push it to the servers.
      *
