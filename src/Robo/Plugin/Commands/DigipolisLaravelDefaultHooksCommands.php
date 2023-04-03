@@ -43,8 +43,7 @@ class DigipolisLaravelDefaultHooksCommands extends Tasks implements ConfigAwareI
         $settings = [];
         /** @var \SplFileInfo $settingsFile */
         foreach ($finder as $settingsFile) {
-            $env = Dotenv::parse(file_get_contents($settingsFile->getRealPath()));
-            $settings = $env->load();
+            $settings = Dotenv::parse(file_get_contents($settingsFile->getRealPath()));
             break;
         }
         return [
