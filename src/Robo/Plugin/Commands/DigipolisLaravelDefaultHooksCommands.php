@@ -14,8 +14,6 @@ use DigipolisGent\Robo\Laravel\EventHandler\PreRestoreBackupRemoteHandler;
 use DigipolisGent\Robo\Laravel\EventHandler\UpdateLaravelHandler;
 use DigipolisGent\Robo\Laravel\EventHandler\UpdateHandler;
 use Dotenv\Dotenv;
-use Dotenv\Repository\Adapter\ArrayAdapter;
-use Dotenv\Repository\RepositoryBuilder;
 use Robo\Contract\ConfigAwareInterface;
 use Robo\Tasks;
 use Symfony\Component\Finder\Finder;
@@ -45,13 +43,6 @@ class DigipolisLaravelDefaultHooksCommands extends Tasks implements ConfigAwareI
         $settings = [];
         /** @var \SplFileInfo $settingsFile */
         foreach ($finder as $settingsFile) {
-            $adapters = [new ArrayAdapter()];
-
-            $repository = RepositoryBuilder::create()
-                ->withReaders($adapters)
-                ->withWriters($adapters)
-                ->make();
-
             $env = Dotenv::parse(file_get_contents($settingsFile->getRealPath()));
             $settings = $env->load();
             break;
