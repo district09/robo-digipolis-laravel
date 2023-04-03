@@ -12,7 +12,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 class ClearCacheHandler extends AbstractTaskEventHandler implements ConfigAwareInterface
 {
 
-    use \DigipolisGent\Robo\Drupal8\Traits\Drupal8UtilsTrait;
     use \DigipolisGent\Robo\Task\General\Tasks;
     use \DigipolisGent\Robo\Task\Deploy\Tasks;
     use \Consolidation\Config\ConfigAwareTrait;
