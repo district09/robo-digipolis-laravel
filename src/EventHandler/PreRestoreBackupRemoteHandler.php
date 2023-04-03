@@ -13,8 +13,9 @@ class PreRestoreBackupRemoteHandler extends AbstractBackupHandler
     use \DigipolisGent\Robo\Task\Deploy\Tasks;
 
 
-    public function getPriority(): int {
-      return parent::getPriority() - 100;
+    public function getPriority(): int
+    {
+        return parent::getPriority() - 100;
     }
 
     /**
@@ -35,7 +36,7 @@ class PreRestoreBackupRemoteHandler extends AbstractBackupHandler
         $currentProjectRoot = $remoteSettings['currentdir'] . '/..';
         $collection = $this->collectionBuilder();
 
-        if ($opts['data']) {
+        if ($options['data']) {
             $collection
                 ->taskSsh($remoteConfig->getHost(), $auth)
                     ->remoteDirectory($currentProjectRoot, true)
