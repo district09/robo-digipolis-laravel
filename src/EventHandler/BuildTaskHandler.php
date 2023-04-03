@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class BuildTaskHandler extends AbstractTaskEventHandler
 {
-    use \DigipolisGent\Robo\Task\Package\Drupal8\Tasks;
     use \DigipolisGent\Robo\Task\Package\Tasks;
 
     public function getPriority(): int {
