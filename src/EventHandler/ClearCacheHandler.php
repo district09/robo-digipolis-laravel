@@ -16,7 +16,6 @@ class ClearCacheHandler extends AbstractTaskEventHandler implements ConfigAwareI
     use \DigipolisGent\Robo\Task\Deploy\Tasks;
     use \Consolidation\Config\ConfigAwareTrait;
     use \DigipolisGent\Robo\Task\General\Common\DigipolisPropertiesAware;
-    use \Boedah\Robo\Task\Drush\loadTasks;
 
     /**
      * {@inheritDoc}
